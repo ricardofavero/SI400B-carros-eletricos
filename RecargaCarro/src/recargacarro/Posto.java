@@ -11,14 +11,13 @@ package recargacarro;
  */
 public class Posto {
     private String nome;
-    private String endereco;
-    private String cidade;
-    private String estado;
-    private int zip;
+    private Endereco endereco;
     private String telefone;
-    private Localizacao coordenada;
+    private Localizacao localizacao;
     //é possivel calcular a distancia entre pontos lat-long por meio de uma formula!
-    private String horario;
+    private String horarioFunc;
     private String observacao;
     
+    void exibir(){
+    }
 }
