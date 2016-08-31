@@ -11,7 +11,12 @@ package recargacarro;
  */
 public class Usuario {
     private String nome;
+    private String login;
+    private String senha;
+    private String email;
     private Localizacao localizacao;
+    
+    
     
     Localizacao getLocalizacao(){
         Localizacao tmp = new Localizacao(1.0,1.0);
@@ -20,4 +25,7 @@ public class Usuario {
     int getDistanciaPosto(Posto p){
         return 0;
     }
+    void cadastrar(Usuario u){}
+    void alterarCadastro(Usuario u){}
+    void recuperarSenha(Usuario u){}
 }
