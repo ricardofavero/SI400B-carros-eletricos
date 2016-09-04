@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package recargacarro;
+package com.si400.recargacarro;
 
 /**
  *
  * @author Acer
  */
-public class Interface {
-    
+public class Endereco {
+    private String rua;
+    private int numero;
+    private String cidade;
+    private String estado;
+    private int zip;
 }
