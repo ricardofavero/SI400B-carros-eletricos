@@ -17,7 +17,7 @@ import java.io.FileNotFoundException;
  *
  * @author Acer
  */
-public class RecargaCarro {
+public class EVChargingStations {
  
         public static void main(String[] args) {
 
