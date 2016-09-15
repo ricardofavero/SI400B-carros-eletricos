@@ -1,0 +1,20 @@
+Mudança do idioma do código para inglês
+(mudança das classes: EVChargingStations = RecargaCarro, Address = Endereco, Location = Localizacao, Station = Posto, Stations = LeituraDados, User = Usuario)
+
+Criação e desenvolvimento da classe StationJSON para deserializar o arquivo .json baixado.
+
+Testes da classe StationJSON
+
+Modificação das Classes Station, Location e Address para receberem os dados da classe StationJSON.
+
+Modificação da classe Stations para receber uma coleção de objetos do tipo Station
+
+Testes das classes Stations, Station, Location e Address
+
+Implementação do método de transformar endereços em coordenadas dentro da classe Address usando Google Maps Geocoding API
+
+Teste disso acima.
+
+Implementação do método de conseguir a distância entre duas coordenadas dentro da classe Location usando Google Maps Distance Matrix API
+
+Teste disso acima.

@@ -23,15 +23,22 @@ import java.util.logging.Logger;
  * @author Acer
  */
 public class Stations {
-    static Collection<Station> stations;
+    Collection<Station> stations;
     
     public Stations() {
         stations = new ArrayList<>();
     }
     
-        private static  InputStream stream = null;
+        private InputStream stream = null;
     
-        public static void readStream() {
+    void addStation(Station s){
+        stations.add(s);
+    }
+    Collection<Station> getStations(){
+        return stations;
+    }
+        
+        public void readStream() {
         try {
             
             stream  = new FileInputStream("dados3.json");
@@ -76,7 +83,7 @@ public class Stations {
         
             @Override
     public String toString() {
-        String response = "null";
+        String response = new String();
         if (stations != null) {
             for (Station station : stations) {
                 response = response

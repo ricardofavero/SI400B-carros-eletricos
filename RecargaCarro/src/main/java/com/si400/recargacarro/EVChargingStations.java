@@ -23,6 +23,8 @@ public class EVChargingStations {
 
         // TEST: creating list of stations
         Stations test = new Stations();
+        test.readStream();
+        //System.out.println(test);
 
         // TEST: getting coordinates from address
         Address a = new Address();
@@ -31,14 +33,21 @@ public class EVChargingStations {
         a.setStreet("3241 S Wabash Ave");
         a.setZip("60616");
         Location l1 = a.getGoogleLocation();
-        System.out.println(l1);
+        //System.out.println(l1);
         
         // TEST: getting distance between coordinates
         Location l2 = new Location();
         l2.setLatitude(29.7545795);
         l2.setLongitude(-95.3724258);
-        Location l3 = new Location();
-        System.out.println("Distance in meters: " + l3.getGoogleDistance(l1,l2));
+        //System.out.println("Distance in meters (google): " + l2.getGoogleDistanceTo(l1));
+        //System.out.println("Distance in meters: " + Location.getDistance(l1, l2));
+        
+        User u = new User();
+        u.setLocation(l1);
+        int radius = 2000; // in meters
+        Stations result = u.getStationsCloserThan(test, radius); 
+        System.out.println("\nFound " + result.getStations().size() + " stations in a " + radius/1000 + " km radius from " + a + "\n");
+        System.out.println(result);
         
     }
 }
