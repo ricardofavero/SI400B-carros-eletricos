@@ -3,18 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.si400.recargacarro;
-
-import java.util.ArrayList;
-import java.util.Collection;
+package com.si400.recargacarro.model;
 
 /**
  *
- * @author Acer
+ * @ AUTOR: RICARDO GUIOTTO FAVERO
  */
 public class User {
     private String name;
     private Location location;
+
+    public User(String name, Location location) {
+        this.name = name;
+        this.location = location;
+    }
 
     public String getName() {
         return name;
@@ -33,15 +35,15 @@ public class User {
     }
 
     float getDistanceToStation(Station s){
-        //return location.getGoogleDistanceTo(s.getLocation());
+        //return Location.getGoogleDistance(location, s.getLocation());
         return Location.getDistance(location, s.getLocation());
     }
     
-    Stations getStationsCloserThan(Stations StationsList, int max_distance){
+    public Stations getStationsInRadius(Stations StationsList, int max_distance){
         Stations ResultStations = new Stations();
         
         for(Station s : StationsList.getStations()){
-            if(this.getDistanceToStation(s) < max_distance){
+            if(this.getDistanceToStation(s) <= max_distance){
                 ResultStations.addStation(s);
             }
         }

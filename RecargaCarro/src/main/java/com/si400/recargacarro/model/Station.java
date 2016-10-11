@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.si400.recargacarro;
+package com.si400.recargacarro.model;
 
 /**
  *
- * @author Acer
+ * @ AUTOR: RICARDO GUIOTTO FAVERO
  */
 public class Station {
     private String name;
@@ -16,6 +16,15 @@ public class Station {
     private String opening;
     private String note;
     private Location location;
+
+    public Station(String name, String phone, Address address, String opening, String note, Location location) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.opening = opening;
+        this.note = note;
+        this.location = location;
+    }
 
     public String getName() {
         return name;
@@ -68,7 +77,7 @@ public class Station {
     
     @Override
     public String toString() {
-        String response = "null";
+        String response = new String();
         response = "\n"+ name + "\n"
                  + "Opening hours: " + opening + "\n"
                  + "Phone: " + phone + "\n"

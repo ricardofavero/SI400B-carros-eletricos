@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.si400.recargacarro;
+package com.si400.recargacarro.model;
 
+import com.si400.recargacarro.modelJSON.StationJSON;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -20,7 +21,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Acer
+ * @ AUTOR: RICARDO GUIOTTO FAVERO
  */
 public class Stations {
     Collection<Station> stations;
@@ -31,10 +32,10 @@ public class Stations {
     
         private InputStream stream = null;
     
-    void addStation(Station s){
+    public void addStation(Station s){
         stations.add(s);
     }
-    Collection<Station> getStations(){
+    public Collection<Station> getStations(){
         return stations;
     }
         
@@ -50,23 +51,26 @@ public class Stations {
             while (reader.hasNext()) {
                 StationJSON sjson = gson.fromJson(reader, StationJSON.class);
                 
-                Address address = new Address();
-                address.setCity(sjson.getCity());
-                address.setState(sjson.getState());
-                address.setStreet(sjson.getStreet_address());
-                address.setZip(sjson.getZip());
+                Address address = new Address(
+                sjson.getStreet_address(),
+                sjson.getCity(),
+                sjson.getState(),
+                sjson.getZip()
+                );
                 
-                Location location = new Location();
-                location.setLatitude(Double.parseDouble(sjson.getLatitude()));
-                location.setLongitude(Double.parseDouble(sjson.getLongitude()));
+                Location location = new Location(
+                Double.parseDouble(sjson.getLatitude()),
+                Double.parseDouble(sjson.getLongitude())
+                );
                 
-                Station station = new Station();
-                station.setAddress(address);
-                station.setLocation(location);
-                station.setName(sjson.getStation_name());
-                station.setNote(sjson.getIntersection_directions());
-                station.setOpening(sjson.getAccess_days_time());
-                station.setPhone(sjson.getStation_phone());
+                Station station = new Station(
+                sjson.getStation_name(),
+                sjson.getStation_phone(),
+                address,
+                sjson.getAccess_days_time(),
+                sjson.getIntersection_directions(),
+                location
+                );
                 
                 stations.add(station);
                // if (person.getId() == 0 ) {

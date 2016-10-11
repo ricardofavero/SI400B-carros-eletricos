@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.si400.recargacarro;
+package com.si400.recargacarro.model;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
@@ -11,16 +11,22 @@ import com.google.maps.model.GeocodingResult;
 
 /**
  *
- * @author Acer
+ * @ AUTOR: RICARDO GUIOTTO FAVERO
  */
 
-// talvez essa classe não seja necessária
 
 public class Address {
     private String street;
     private String city;
     private String state;
     private String zip;
+    
+    public Address(String street, String city, String state, String zip){
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+    }
     
 /*   Address()
 
@@ -70,16 +76,13 @@ public class Address {
         this.zip = zip;
     }
     
-    Location getGoogleLocation(){
+    public Location getGoogleLocation(){
         GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyADksjnARGqM5wEDAxdy0ykMe3D0zSAHJE");
         GeocodingResult[] results;
         Location response = new Location();
         try{
             results = GeocodingApi.geocode(context, this.toString()).await();
             
-            //System.out.println(results[0].formattedAddress);
-            //System.out.println(results[0].geometry.location.lat);
-            //System.out.println(results[0].geometry.location.lng);
             response.setLatitude(results[0].geometry.location.lat);
             response.setLongitude(results[0].geometry.location.lng);
             

@@ -3,22 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.si400.recargacarro;
+package com.si400.recargacarro.model;
 import com.google.maps.DistanceMatrixApi;
-import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
-import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.DistanceMatrix;
 
 /**
  *
- * @author Acer
+ * @ AUTOR: RICARDO GUIOTTO FAVERO
  */
+
 public class Location {
     private double latitude;
     private double longitude;
-    private GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyADksjnARGqM5wEDAxdy0ykMe3D0zSAHJE");
+    static private GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyADksjnARGqM5wEDAxdy0ykMe3D0zSAHJE");
+
+    public Location() {}
+    
+    public Location(double latitude, double longitude){
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public double getLatitude() {
         return latitude;
@@ -36,10 +41,10 @@ public class Location {
         this.longitude = longitude;
     }
     
-    long getGoogleDistanceTo(Location l2){
+    public static long getGoogleDistance(Location l1, Location l2){
         
         try {
-            DistanceMatrix distanceMatrix=DistanceMatrixApi.newRequest(context).origins(latitude + ", " + longitude).destinations(l2.toString()).await();
+            DistanceMatrix distanceMatrix=DistanceMatrixApi.newRequest(context).origins(l1.toString()).destinations(l2.toString()).await();
             if (distanceMatrix.rows.length == 0 || distanceMatrix.rows[0].elements.length == 0)     throw new RuntimeException("No distance and duration found.");
             //return new RouteDistanceDuration(distanceMatrix.rows[0].elements[0].distance.inMeters,distanceMatrix.rows[0].elements[0].duration.inSeconds);
             return distanceMatrix.rows[0].elements[0].distance.inMeters;
@@ -50,6 +55,7 @@ public class Location {
           }
     }
     
+    //Haversine formula. From http://stackoverflow.com/questions/837872/calculate-distance-in-meters-when-you-know-longitude-and-latitude-in-java
     public static float getDistance(Location l1, Location l2) {
         double earthRadius = 6371000; //meters
         double dLat = Math.toRadians(l2.latitude-l1.latitude);
@@ -65,7 +71,7 @@ public class Location {
     
     @Override
     public String toString() {
-        String response = "null";
+        String response = new String();
         response = latitude + ", " + longitude;
         return response;
     }
