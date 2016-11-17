@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.si400.recargacarro.model;
 
 import com.si400.recargacarro.modelJSON.StationJSON;
@@ -15,16 +10,25 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @ AUTOR: RICARDO GUIOTTO FAVERO
+/*
+    UNICAMP - Faculdade de Tecnologia
+    Disciplina SI400 - Programação Orientada a Objetos II (2016)
+
+    Autores:
+    Ricardo Favero       157161
+    Fernanda Gravena     159702
+    Isadora Fonseca      155815
+    Marcela Magossi      156521 
  */
+
 public class Stations {
-    Collection<Station> stations;
+    //Collection<Station> stations;
+    List<Station> stations = new ArrayList();
     
     public Stations() {
         stations = new ArrayList<>();
@@ -35,8 +39,12 @@ public class Stations {
     public void addStation(Station s){
         stations.add(s);
     }
-    public Collection<Station> getStations(){
+    public List<Station> getStations(){
         return stations;
+    }
+    
+    public void SortByDistance(){
+        Collections.sort(stations);
     }
         
         public void readStream() {
@@ -84,6 +92,8 @@ public class Stations {
             Logger.getLogger(Stations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+        
+
         
             @Override
     public String toString() {

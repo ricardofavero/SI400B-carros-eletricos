@@ -1,17 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.si400.recargacarro.model;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
 
-/**
- *
- * @ AUTOR: RICARDO GUIOTTO FAVERO
+/*
+    UNICAMP - Faculdade de Tecnologia
+    Disciplina SI400 - Programação Orientada a Objetos II (2016)
+
+    Autores:
+    Ricardo Favero       157161
+    Fernanda Gravena     159702
+    Isadora Fonseca      155815
+    Marcela Magossi      156521 
  */
 
 

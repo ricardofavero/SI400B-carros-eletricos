@@ -1,16 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.si400.recargacarro.model;
+
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.model.DistanceMatrix;
 
-/**
- *
- * @ AUTOR: RICARDO GUIOTTO FAVERO
+/*
+    UNICAMP - Faculdade de Tecnologia
+    Disciplina SI400 - Programação Orientada a Objetos II (2016)
+
+    Autores:
+    Ricardo Favero       157161
+    Fernanda Gravena     159702
+    Isadora Fonseca      155815
+    Marcela Magossi      156521 
  */
 
 public class Location {
@@ -56,7 +58,7 @@ public class Location {
     }
     
     //Haversine formula. From http://stackoverflow.com/questions/837872/calculate-distance-in-meters-when-you-know-longitude-and-latitude-in-java
-    public static float getDistance(Location l1, Location l2) {
+    public static int getDistanceInMiles(Location l1, Location l2) {
         double earthRadius = 6371000; //meters
         double dLat = Math.toRadians(l2.latitude-l1.latitude);
         double dLng = Math.toRadians(l2.longitude-l1.longitude);
@@ -65,8 +67,9 @@ public class Location {
                    Math.sin(dLng/2) * Math.sin(dLng/2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         float dist = (float) (earthRadius * c);
+        int dist_mi = (int) (dist/1000 * 0.621);
 
-        return dist;
+        return dist_mi;
     }
     
     @Override
