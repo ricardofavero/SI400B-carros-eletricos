@@ -42,7 +42,7 @@ public class Location {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-    
+    /*
     public static long getGoogleDistance(Location l1, Location l2){
         
         try {
@@ -56,6 +56,7 @@ public class Location {
             throw new RuntimeException(e);
           }
     }
+    */
     
     //Haversine formula. From http://stackoverflow.com/questions/837872/calculate-distance-in-meters-when-you-know-longitude-and-latitude-in-java
     public static int getDistanceInMiles(Location l1, Location l2) {
