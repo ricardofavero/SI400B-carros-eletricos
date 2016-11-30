@@ -5,6 +5,8 @@ import com.si400.recargacarro.model.Location;
 import com.si400.recargacarro.model.Stations;
 import com.si400.recargacarro.model.StationsTableModel;
 import com.si400.recargacarro.model.User;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -28,7 +30,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     User u = new User();
     Stations allStations = new Stations();
-
+    
     static String[] states = new String[]{
         "", "Alabama", "Alaska", "Arizona", "Arkansas", "California",
         "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
@@ -46,11 +48,31 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form JFrame
      */
     public MainFrame() {
+        Locale default_language = Locale.getDefault();
+        Names.setLanguage(default_language.toString());
+        //Names.setLanguage("en_US");
         initComponents();
         Stations x = new Stations();
         showDataOnTable(x);
         allStations.readStream();
+        
+        
 
+        setTitle(Names.get("program_name"));
+
+        jTabbedPane.setTitleAt(0, Names.get("tab1"));
+        jTabbedPane.setTitleAt(1, Names.get("tab2"));
+/*
+        zip_label.setText(Names.get("zip") + ":");
+        street_label.setText(Names.get("street") + ":");
+        city_label.setText(Names.get("city") + ":");
+        state_label.setText(Names.get("state") + ":");
+        radius_label.setText(Names.get("radius") + ":");
+        searchButton.setText(Names.get("search_button"));
+        orLabel.setText(Names.get("or"));
+*/
+       
+        
         /*
         // TEST: creating list of stations
         Stations test = new Stations();
@@ -97,27 +119,36 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanellSearch = new javax.swing.JPanel();
+        jTabbedPane = new javax.swing.JTabbedPane();
+        jPanelSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableResults = new javax.swing.JTable();
         radiusSlider = new javax.swing.JSlider();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        street_label = new javax.swing.JLabel();
+        radius_label = new javax.swing.JLabel();
         radiusLabel = new javax.swing.JLabel();
         searchButton = new javax.swing.JButton();
         streetField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        city_label = new javax.swing.JLabel();
         cityField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        state_label = new javax.swing.JLabel();
         stateComboBox = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        zip_label = new javax.swing.JLabel();
         zipField = new javax.swing.JTextField();
-        jPanelStatistics = new javax.swing.JPanel();
+        enter_data = new javax.swing.JLabel();
+        jPanelCharts = new javax.swing.JPanel();
         chart1Button = new javax.swing.JButton();
         chart2Button = new javax.swing.JButton();
         chart3Button = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(null);
@@ -145,13 +176,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Street Address: ");
+        street_label.setText(Names.get("street") + ":");
 
-        jLabel2.setText("Search radius:");
+        radius_label.setText(Names.get("radius") + ":");
 
-        radiusLabel.setText("25 miles");
+        radiusLabel.setText(radiusSlider.getValue() + " " + (Names.get("mile") + "s"));
 
-        searchButton.setText("Search");
+        searchButton.setText(Names.get("search_button"));
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
@@ -164,7 +195,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("City: ");
+        city_label.setText(Names.get("city") + ":");
 
         cityField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -172,7 +203,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("State:");
+        state_label.setText(Names.get("state") + ":");
 
         stateComboBox.setModel(new DefaultComboBoxModel(states));
         stateComboBox.addItemListener(new java.awt.event.ItemListener() {
@@ -181,10 +212,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel5.setText("OR");
-
-        jLabel6.setText("ZIP Code:");
+        zip_label.setText(Names.get("zip") + ":");
 
         zipField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -192,81 +220,76 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanellSearchLayout = new javax.swing.GroupLayout(jPanellSearch);
-        jPanellSearch.setLayout(jPanellSearchLayout);
-        jPanellSearchLayout.setHorizontalGroup(
-            jPanellSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        enter_data.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        enter_data.setText(Names.get("enter_data"));
+
+        javax.swing.GroupLayout jPanelSearchLayout = new javax.swing.GroupLayout(jPanelSearch);
+        jPanelSearch.setLayout(jPanelSearchLayout);
+        jPanelSearchLayout.setHorizontalGroup(
+            jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1307, Short.MAX_VALUE)
-            .addGroup(jPanellSearchLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanellSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanellSearchLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(zipField, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanellSearchLayout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(jLabel5)
-                        .addGap(67, 67, 67)
-                        .addGroup(jPanellSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanellSearchLayout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addGroup(jPanellSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGroup(jPanellSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanellSearchLayout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(stateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanellSearchLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanellSearchLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(streetField, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanellSearchLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
+            .addGroup(jPanelSearchLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelSearchLayout.createSequentialGroup()
+                        .addComponent(zip_label)
+                        .addGap(18, 18, 18)
+                        .addComponent(zipField, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(city_label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(state_label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(street_label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(stateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(streetField, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(enter_data)
+                    .addComponent(searchButton)
+                    .addGroup(jPanelSearchLayout.createSequentialGroup()
+                        .addComponent(radius_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(radiusSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(radiusLabel))
-                    .addComponent(searchButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radiusLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanellSearchLayout.setVerticalGroup(
-            jPanellSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanellSearchLayout.createSequentialGroup()
+        jPanelSearchLayout.setVerticalGroup(
+            jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSearchLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(enter_data)
                 .addGap(18, 18, 18)
-                .addGroup(jPanellSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(street_label)
                     .addComponent(streetField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(zipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(zip_label)
+                    .addComponent(zipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanellSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(city_label)
                     .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanellSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(state_label)
                     .addComponent(stateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
-                .addGroup(jPanellSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
+                .addGroup(jPanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(radius_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(radiusSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(radiusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(42, 42, 42)
+                    .addComponent(radiusLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addComponent(searchButton)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jTabbedPane2.addTab("Search for Stations", jPanellSearch);
+        jTabbedPane.addTab(Names.get("tab1"), jPanelSearch);
 
-        chart1Button.setText("Number of Stations by State");
+        chart1Button.setText(Names.get("chart1"));
         chart1Button.setToolTipText("");
         chart1Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,35 +297,35 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        chart2Button.setText("Top 10 Cities by Number of Stations");
+        chart2Button.setText(Names.get("chart2"));
         chart2Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chart2ButtonActionPerformed(evt);
             }
         });
 
-        chart3Button.setText("Number of Stations by Region");
+        chart3Button.setText(Names.get("chart3"));
         chart3Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chart3ButtonActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanelStatisticsLayout = new javax.swing.GroupLayout(jPanelStatistics);
-        jPanelStatistics.setLayout(jPanelStatisticsLayout);
-        jPanelStatisticsLayout.setHorizontalGroup(
-            jPanelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelStatisticsLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelChartsLayout = new javax.swing.GroupLayout(jPanelCharts);
+        jPanelCharts.setLayout(jPanelChartsLayout);
+        jPanelChartsLayout.setHorizontalGroup(
+            jPanelChartsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelChartsLayout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addGroup(jPanelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanelChartsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(chart3Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(chart1Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(chart2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(609, Short.MAX_VALUE))
         );
-        jPanelStatisticsLayout.setVerticalGroup(
-            jPanelStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelStatisticsLayout.createSequentialGroup()
+        jPanelChartsLayout.setVerticalGroup(
+            jPanelChartsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelChartsLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(chart1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -312,22 +335,83 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(255, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Charts", null, jPanelStatistics, "");
+        jTabbedPane.addTab(Names.get("tab2"), null, jPanelCharts, "");
+
+        jLabel1.setText(Names.get("about1"));
+
+        jLabel2.setText(Names.get("about2"));
+
+        jLabel3.setText((Names.get("authors")+":"));
+
+        jLabel4.setText("Ricardo Favero       157161");
+
+        jLabel5.setText("Fernanda Gravena     159702");
+
+        jLabel6.setText("Isadora Fonseca      155815");
+
+        jLabel7.setText("Marcela Magossi      156521");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel8.setText(Names.get("program_name"));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))))
+                .addContainerGap(1039, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel8)
+                .addGap(41, 41, 41)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(45, 45, 45)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addContainerGap(263, Short.MAX_VALUE))
+        );
+
+        jTabbedPane.addTab(Names.get("tab3"), jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane2)
+                .addComponent(jTabbedPane)
                 .addContainerGap())
         );
 
-        jTabbedPane2.getAccessibleContext().setAccessibleName("Search for Stations");
+        jTabbedPane.getAccessibleContext().setAccessibleName("Search for Stations");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -361,26 +445,30 @@ public class MainFrame extends javax.swing.JFrame {
             u.setLocation(l);
             Stations result = u.getStationsInRadius(allStations, radiusSlider.getValue());
             showDataOnTable(result);
+            if(result.getStations().isEmpty()){
+                showMessageDialog(null, Names.get("msg_location_not_found"));
+            }
         } else if (zipField.getText().equals("")) {
             if (streetField.getText().equals("") && cityField.getText().equals("") && stateComboBox.getSelectedItem().equals("")) {
-                showMessageDialog(null, "Please enter an address or ZIP Code!");
+                showMessageDialog(null, Names.get("msg_address_or_zip"));
             } else if (streetField.getText().equals("")) {
-                showMessageDialog(null, "Please enter a street address!");
-            } else if (cityField.getText().equals("")) {
-                showMessageDialog(null, "Please enter a city!");
+                showMessageDialog(null, Names.get("msg_street"));
+            } else if ((cityField.getText().equals(""))) {
+                showMessageDialog(null, Names.get("msg_city"));
             } else if (stateComboBox.getSelectedItem().equals("")) {
-                showMessageDialog(null, "Please enter a state!");
-            }
+                showMessageDialog(null, Names.get("msg_state"));
+            } 
         }
 
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void radiusSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radiusSliderStateChanged
-        radiusLabel.setText(radiusSlider.getValue() + " miles");
+        radiusLabel.setText(radiusSlider.getValue() + " " + (Names.get("mile") + "s"));
+        
     }//GEN-LAST:event_radiusSliderStateChanged
 
     private void chart1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chart1ButtonActionPerformed
-        JFrame frame = new JFrame("Number of Stations by State");
+        JFrame frame = new JFrame(Names.get("chart1"));
         frame.setSize(1300, 800);
 
         final JFXPanel fxPanelB = new JFXPanel();
@@ -401,7 +489,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_chart1ButtonActionPerformed
 
     private void chart2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chart2ButtonActionPerformed
-        JFrame frame = new JFrame("Top 10 Cities by Number of Stations");
+        JFrame frame = new JFrame(Names.get("chart2"));
         frame.setSize(1300, 800);
 
         final JFXPanel fxPanelB = new JFXPanel();
@@ -423,7 +511,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_chart2ButtonActionPerformed
 
     private void chart3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chart3ButtonActionPerformed
-        JFrame frame = new JFrame("Number of Stations by Region");
+        JFrame frame = new JFrame(Names.get("chart3"));
         frame.setSize(1300, 800);
 
         final JFXPanel fxPanelB = new JFXPanel();
@@ -495,22 +583,31 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton chart2Button;
     private javax.swing.JButton chart3Button;
     private javax.swing.JTextField cityField;
+    private javax.swing.JLabel city_label;
+    private javax.swing.JLabel enter_data;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanelStatistics;
-    private javax.swing.JPanel jPanellSearch;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelCharts;
+    private javax.swing.JPanel jPanelSearch;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable jTableResults;
     private javax.swing.JLabel radiusLabel;
     private javax.swing.JSlider radiusSlider;
+    private javax.swing.JLabel radius_label;
     private javax.swing.JButton searchButton;
     private javax.swing.JComboBox<String> stateComboBox;
+    private javax.swing.JLabel state_label;
     private javax.swing.JTextField streetField;
+    private javax.swing.JLabel street_label;
     private javax.swing.JTextField zipField;
+    private javax.swing.JLabel zip_label;
     // End of variables declaration//GEN-END:variables
 }

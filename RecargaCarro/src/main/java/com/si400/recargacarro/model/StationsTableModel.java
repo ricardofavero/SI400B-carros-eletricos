@@ -1,5 +1,6 @@
 package com.si400.recargacarro.model;
 
+import com.si400.recargacarro.view.Names;
 import javax.swing.table.AbstractTableModel;
 
 /*
@@ -16,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class StationsTableModel extends AbstractTableModel {
 
         private Stations data;
-        private final String[] columns = {"Station Name", "Opening Hours", "Address", "Phone", "Note", "Distance"};
+        private final String[] columns = {Names.get("table_station_name"), Names.get("table_opening"), Names.get("table_address"), Names.get("table_phone"), Names.get("table_note"), Names.get("table_distance")};
 
         public StationsTableModel(Stations data){
             this.data = data;
@@ -47,11 +48,11 @@ public class StationsTableModel extends AbstractTableModel {
                 case 4: return data.getStations().get(r).getNote();
                 case 5: 
                     if(data.getStations().get(r).getTmp_distance() < 1)
-                     return "< 1 mile";
+                     return "< 1 " + Names.get("mile");
                  else if(data.getStations().get(r).getTmp_distance() == 1)
-                     return "1 mile";
+                     return "1 " + Names.get("mile");
                  else
-                    return data.getStations().get(r).getTmp_distance() + " miles";
+                    return data.getStations().get(r).getTmp_distance() + " " + (Names.get("mile") + "s");
 
             }   
             return null;

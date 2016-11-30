@@ -4,6 +4,7 @@ import com.si400.recargacarro.model.State;
 import com.si400.recargacarro.model.StateList;
 import com.si400.recargacarro.model.Stations;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ import javafx.scene.chart.XYChart;
     Marcela Magossi      156521 
  */
 
-public class RegionsChart extends Chart{
+public class RegionsChart {
 
     static final List<String> northeast = Arrays.asList("Connecticut", "Maine", "Massachusetts", "New Hampshire", "Rhode Island", "Vermont", "New Jersey", "New York", "Pennsylvania");
     static final List<String> midwest = Arrays.asList("Illinois", "Indiana", "Michigan", "Ohio", "Wisconsin", "Iowa", "Kansas", "Minnesota", "Missouri", "Nebraska", "North Dakota", "South Dakota");
@@ -34,10 +35,10 @@ public class RegionsChart extends Chart{
     Map<String, List<String>> regions = new HashMap<>();
 
     public BarChart<Number, String> getChart(Stations stations) {
-        regions.put("Northeast", northeast);
-        regions.put("Midwest", midwest);
-        regions.put("South", south);
-        regions.put("West", west);
+        regions.put(Names.get("northeast"), northeast);
+        regions.put(Names.get("midwest"), midwest);
+        regions.put(Names.get("south"), south);
+        regions.put(Names.get("west"), west);
         Map<String, Long> stationsByState = new TreeMap<String, Long>();
         Map<String, Long> results = new TreeMap<String, Long>();
         long count = 0;
@@ -48,10 +49,10 @@ public class RegionsChart extends Chart{
                 = new BarChart<Number, String>(xAxis, yAxis);
         
         // setting chart properties
-        bc.setTitle("Number of Stations by Region");
-        xAxis.setLabel("Stations");
+        bc.setTitle(Names.get("chart3"));
+        xAxis.setLabel(Names.get("chart_stations"));
         xAxis.setTickLabelRotation(90);
-        yAxis.setLabel("Regions");
+        yAxis.setLabel(Names.get("chart_region"));
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("2016");
 
@@ -80,8 +81,13 @@ public class RegionsChart extends Chart{
             results.put(region.getKey(), count);
         }
         
+        // sorting results
+        Map<String, Long> sortedResults = new TreeMap<String, Long>();
+        sortedResults = ChartTools.sortByValueInverted(results);
+
+
         // adding results to chart
-        for (Entry<String, Long> entry : results.entrySet()) {
+        for (Entry<String, Long> entry : sortedResults.entrySet()) {
             String key = entry.getKey();
             long value = entry.getValue();
 

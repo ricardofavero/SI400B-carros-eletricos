@@ -22,7 +22,7 @@ import javafx.scene.chart.XYChart;
     Marcela Magossi      156521 
  */
 
-public class StatesChart extends Chart{
+public class StatesChart {
 
     public BarChart<String, Number> getChart(Stations stations) {
         Map<String, Long> results = new TreeMap<String, Long>();
@@ -33,10 +33,10 @@ public class StatesChart extends Chart{
                 = new BarChart<String, Number>(xAxis, yAxis);
         
         // setting chart properties
-        bc.setTitle("Number of Stations by State");
-        xAxis.setLabel("State");
+        bc.setTitle(Names.get("chart1"));
+        xAxis.setLabel(Names.get("chart_state"));
         xAxis.setTickLabelRotation(90);
-        yAxis.setLabel("Stations");
+        yAxis.setLabel(Names.get("chart_stations"));
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("2016");
 
@@ -52,7 +52,7 @@ public class StatesChart extends Chart{
         
         // sorting results
         Map<String, Long> sortedResults = new TreeMap<String, Long>();
-        sortedResults = sortByValue(results);
+        sortedResults = ChartTools.sortByValue(results);
 
         // adding results to chart
         for (Entry<String, Long> entry : sortedResults.entrySet()) {

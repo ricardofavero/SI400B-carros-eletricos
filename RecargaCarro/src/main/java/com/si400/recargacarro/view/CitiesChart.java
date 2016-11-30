@@ -24,7 +24,7 @@ import javafx.scene.chart.XYChart;
     Marcela Magossi      156521 
  */
 
-public class CitiesChart extends Chart {
+public class CitiesChart {
     
     public BarChart<Number, String> getChart(Stations stations) {
         Map<String, Long> results = new HashMap<String, Long>();
@@ -35,15 +35,15 @@ public class CitiesChart extends Chart {
                 = new BarChart<Number, String>(xAxis, yAxis);
         
         // setting chart properties
-        bc.setTitle("Top 10 Cities by Number of Stations");
-        xAxis.setLabel("Stations");
+        bc.setTitle(Names.get("chart2"));
+        xAxis.setLabel(Names.get("chart_stations"));
         xAxis.setTickLabelRotation(90);
-        yAxis.setLabel("City");
+        yAxis.setLabel(Names.get("chart_city"));
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("2016");
         
         // getting results
-        for (String city : listCities(stations)) {
+        for (String city : ChartTools.listCities(stations)) {
             long count = stations.getStations().stream()
                     .filter(c -> city.equals(c.getAddress().getCity()))
                     .count();
@@ -52,7 +52,7 @@ public class CitiesChart extends Chart {
 
         // sorting results
         Map<String, Long> sortedResults = new TreeMap<String, Long>();
-        sortedResults = sortByValue(results);
+        sortedResults = ChartTools.sortByValue(results);
 
         // getting first 10 sorted results
         List<Entry<String, Long>> firstTen
