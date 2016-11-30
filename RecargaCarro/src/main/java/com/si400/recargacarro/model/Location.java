@@ -18,7 +18,7 @@ import com.google.maps.model.DistanceMatrix;
 public class Location {
     private double latitude;
     private double longitude;
-    static private GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyADksjnARGqM5wEDAxdy0ykMe3D0zSAHJE");
+    //static private GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyADksjnARGqM5wEDAxdy0ykMe3D0zSAHJE");
 
     public Location() {}
     
