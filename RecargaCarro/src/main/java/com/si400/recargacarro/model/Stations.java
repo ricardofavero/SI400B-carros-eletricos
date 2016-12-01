@@ -25,32 +25,32 @@ import java.util.logging.Logger;
     Isadora Fonseca      155815
     Marcela Magossi      156521 
  */
-
 public class Stations {
-    //Collection<Station> stations;
-    List<Station> stations = new ArrayList();
-    
+
+    private List<Station> stations = new ArrayList();
+
     public Stations() {
         stations = new ArrayList<>();
     }
-    
-        private InputStream stream = null;
-    
-    public void addStation(Station s){
+
+    private InputStream stream = null;
+
+    public void addStation(Station s) {
         stations.add(s);
     }
-    public List<Station> getStations(){
+
+    public List<Station> getStations() {
         return stations;
     }
-    
-    public void SortByDistance(){
+
+    public void sortByDistance() {
         Collections.sort(stations);
     }
-        
-        public void readStream() {
+
+    public void readStream() {
         try {
-            
-            stream  = new FileInputStream("dados3.json");
+
+            stream = new FileInputStream("dados3.json");
             JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
             Gson gson = new GsonBuilder().create();
 
@@ -58,32 +58,32 @@ public class Stations {
             reader.beginArray();
             while (reader.hasNext()) {
                 StationJSON sjson = gson.fromJson(reader, StationJSON.class);
-                
+
                 Address address = new Address(
-                sjson.getStreet_address(),
-                sjson.getCity(),
-                sjson.getState(),
-                sjson.getZip()
+                        sjson.getStreet_address(),
+                        sjson.getCity(),
+                        sjson.getState(),
+                        sjson.getZip()
                 );
-                
+
                 Location location = new Location(
-                Double.parseDouble(sjson.getLatitude()),
-                Double.parseDouble(sjson.getLongitude())
+                        Double.parseDouble(sjson.getLatitude()),
+                        Double.parseDouble(sjson.getLongitude())
                 );
-                
+
                 Station station = new Station(
-                sjson.getStation_name(),
-                sjson.getStation_phone(),
-                address,
-                sjson.getAccess_days_time(),
-                sjson.getIntersection_directions(),
-                location
+                        sjson.getStation_name(),
+                        sjson.getStation_phone(),
+                        address,
+                        sjson.getAccess_days_time(),
+                        sjson.getIntersection_directions(),
+                        location
                 );
-                
+
                 stations.add(station);
-               // if (person.getId() == 0 ) {
-                    //System.out.println("Stream mode: " + posto);
-                    
+                // if (person.getId() == 0 ) {
+                //System.out.println("Stream mode: " + posto);
+
             }
             reader.close();
         } catch (UnsupportedEncodingException ex) {
@@ -92,18 +92,16 @@ public class Stations {
             Logger.getLogger(Stations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
 
-        
-            @Override
+    @Override
     public String toString() {
         String response = new String();
         if (stations != null) {
             for (Station station : stations) {
                 response = response
-                         + "-----------------------------"
-                         + station;
-                        
+                        + "-----------------------------"
+                        + station;
+
             }
         }
         return response;

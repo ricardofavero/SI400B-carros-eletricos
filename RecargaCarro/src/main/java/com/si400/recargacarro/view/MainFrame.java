@@ -14,6 +14,7 @@ import javafx.scene.chart.BarChart;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /*
     UNICAMP - Faculdade de Tecnologia
@@ -48,9 +49,9 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form JFrame
      */
     public MainFrame() {
-        Locale default_language = Locale.getDefault();
-        Names.setLanguage(default_language.toString());
-        //Names.setLanguage("en_US");
+        //Locale default_language = Locale.getDefault();
+        //Names.setLanguage(default_language.toString());
+        Names.setLanguage("en_US");
         initComponents();
         Stations x = new Stations();
         showDataOnTable(x);

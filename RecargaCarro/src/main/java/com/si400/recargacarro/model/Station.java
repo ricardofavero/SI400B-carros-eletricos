@@ -31,6 +31,7 @@ public class Station implements Comparable<Station>{
         this.tmp_distance = 0;
     }
     
+    @Override
     public int compareTo(Station s) {
         //if (this.tmp_distance < s.tmp_distance)
         //    return -1;

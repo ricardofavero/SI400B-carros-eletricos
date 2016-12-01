@@ -43,7 +43,7 @@ public class User {
                 ResultStations.addStation(s);
             }
         }
-        ResultStations.SortByDistance();
+        ResultStations.sortByDistance();
         return ResultStations;
     }
 
